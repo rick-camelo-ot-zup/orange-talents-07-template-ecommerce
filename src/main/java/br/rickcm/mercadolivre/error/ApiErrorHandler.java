@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,6 +39,26 @@ public class ApiErrorHandler{
             errorList.put(e.getField(), messageList);
         });
         return new ErrorDto(errorList);
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(SenhaInvalidaException.class)
+    public ErrorDto handle(SenhaInvalidaException exception) {
+        Map<String, List<String>> errorMap = new HashMap<String, List<String>>();
+        List<String> errorList = new ArrayList<>();
+        errorList.add(exception.getMessage());
+        errorMap.put("senha", errorList);
+        return new ErrorDto(errorMap);
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ErrorDto handle(UsernameNotFoundException exception) {
+        Map<String, List<String>> errorMap = new HashMap<String, List<String>>();
+        List<String> errorList = new ArrayList<>();
+        errorList.add(exception.getMessage());
+        errorMap.put("login", errorList);
+        return new ErrorDto(errorMap);
     }
 
 }

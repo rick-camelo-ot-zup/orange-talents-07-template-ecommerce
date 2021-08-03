@@ -11,5 +11,12 @@ spring:
     url: jdbc:mysql://localhost:3306/ecommerce?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&sslMode=DISABLED&useSSL=false&serverTimezone=UTC
     username: root
     password: root
+    #para habilitar a execucao do data.sql
+    initialization-mode: always
 
+security:
+  jwt:
+    expiracao: 30
+    chave-assinatura: chave_criptografar
+#    chave-assinatura: Y29yaW50aGlhbnMgY2FtcGVhbyBtdW5kaWFs
 

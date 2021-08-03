@@ -1,6 +1,8 @@
 package br.rickcm.mercadolivre.model;
 
 import br.rickcm.mercadolivre.util.SenhaLimpa;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -8,9 +10,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
-public class Usuario {
+public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +31,10 @@ public class Usuario {
     private String senha;
     @Column(nullable = false)
     private LocalDateTime instante;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "usuario_permission", joinColumns = {@JoinColumn(name = "id_user")},
+            inverseJoinColumns = {@JoinColumn(name = "id_permissions")})
+    private List<Permission> permissions;
 
     @PrePersist
     private void onCreate(){
@@ -56,7 +64,46 @@ public class Usuario {
                 '}';
     }
 
+    public String getLogin() {
+        return login;
+    }
+
     public String getSenha(){
         return this.senha;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return permissions;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

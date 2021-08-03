@@ -1,6 +1,5 @@
 package br.rickcm.mercadolivre.rest.controller;
 
-import br.rickcm.mercadolivre.model.Usuario;
 import br.rickcm.mercadolivre.repository.UsuarioRepository;
 import br.rickcm.mercadolivre.rest.dto.UsuarioRequest;
 import org.springframework.http.ResponseEntity;
@@ -26,4 +25,6 @@ public class UsuarioController {
         repository.save(request.toModel());
         return ResponseEntity.ok().build();
     }
+
+
 }
