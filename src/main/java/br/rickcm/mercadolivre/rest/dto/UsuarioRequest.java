@@ -1,6 +1,7 @@
 package br.rickcm.mercadolivre.rest.dto;
 
 import br.rickcm.mercadolivre.model.Usuario;
+import br.rickcm.mercadolivre.rest.validator.UniqueValue;
 import br.rickcm.mercadolivre.util.SenhaLimpa;
 import org.hibernate.validator.constraints.Length;
 
@@ -13,10 +14,18 @@ public class UsuarioRequest {
     @NotBlank
     @NotNull
     @Email
+    @UniqueValue(
+            target = Usuario.class,
+            field = "login",
+            message = "Este e-mail já está cadastrado."
+    )
     private String login;
     @NotBlank
     @NotNull
-    @Length(min = 6, message = "deve ter no mínimo 6 caracteres.")
+    @Length(
+            min = 6,
+            message = "deve ter no mínimo 6 caracteres."
+    )
     private String senha;
 
     public UsuarioRequest() {
