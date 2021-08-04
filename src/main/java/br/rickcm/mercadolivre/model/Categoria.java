@@ -2,6 +2,7 @@ package br.rickcm.mercadolivre.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
 public class Categoria {
@@ -14,6 +15,8 @@ public class Categoria {
     private String nome;
     @ManyToOne
     private Categoria categoriaMae;
+    @OneToMany(mappedBy ="categoria")
+    private List<Produto> produtos;
 
     @Deprecated
     public Categoria() {

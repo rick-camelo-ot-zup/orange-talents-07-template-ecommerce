@@ -5,3 +5,6 @@ INSERT INTO PERMISSION(description) VALUES('USER');
 
 INSERT INTO USUARIO_PERMISSION(id_permissions, ID_USER) VALUES (1,1);
 INSERT INTO USUARIO_PERMISSION(id_permissions, ID_USER) VALUES (2,1);
+
+INSERT INTO CATEGORIA(nome, categoria_mae_id) values ("Eletrodomesticos", null);
+INSERT INTO CATEGORIA(nome, categoria_mae_id) values ("Geladeiras", 1);
