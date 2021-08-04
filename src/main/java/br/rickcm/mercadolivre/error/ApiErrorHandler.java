@@ -61,4 +61,13 @@ public class ApiErrorHandler{
         return new ErrorDto(errorMap);
     }
 
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ErrorDto handle(ResourceNotFoundException exception) {
+        Map<String, List<String>> errorMap = new HashMap<String, List<String>>();
+        List<String> errorList = new ArrayList<>();
+        errorList.add(exception.getMessage());
+        errorMap.put("error", errorList);
+        return new ErrorDto(errorMap);
+    }
 }

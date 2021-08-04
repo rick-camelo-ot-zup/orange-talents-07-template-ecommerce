@@ -1,6 +1,6 @@
 package br.rickcm.mercadolivre.config;
 
-import br.rickcm.mercadolivre.UsuarioDetalhesService;
+import br.rickcm.mercadolivre.service.UsuarioDetalhesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -47,8 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/auth").permitAll()
-//                .antMatchers("/categorias/**")
-//                .hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

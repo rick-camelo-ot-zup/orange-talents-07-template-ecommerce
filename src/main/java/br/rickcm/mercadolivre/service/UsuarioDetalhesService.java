@@ -1,4 +1,4 @@
-package br.rickcm.mercadolivre;
+package br.rickcm.mercadolivre.service;
 
 
 import br.rickcm.mercadolivre.error.SenhaInvalidaException;

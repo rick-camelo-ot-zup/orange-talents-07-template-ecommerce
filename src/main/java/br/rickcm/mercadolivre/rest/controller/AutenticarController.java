@@ -1,6 +1,6 @@
 package br.rickcm.mercadolivre.rest.controller;
 
-import br.rickcm.mercadolivre.UsuarioDetalhesService;
+import br.rickcm.mercadolivre.service.UsuarioDetalhesService;
 import br.rickcm.mercadolivre.config.JwtService;
 import br.rickcm.mercadolivre.model.Usuario;
 import br.rickcm.mercadolivre.repository.UsuarioRepository;
@@ -27,15 +27,10 @@ public class AutenticarController {
     }
 
     @PostMapping("/auth")
-    public TokenDTO autenticar(@RequestBody @Valid AuthDto request){
-//        try {
-            Usuario usuario = request.toModel();
-            UserDetails usuarioAutenticado = service.autenticar(usuario);
-            String token = jwtService.gerarToken(usuario);
-            return new TokenDTO(token);
-//        }catch (UsernameNotFoundException | SenhaInvalidaException e){
-//            System.out.println(e.getMessage());
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-//        }
+    public TokenDTO autenticar(@RequestBody @Valid AuthDto request) {
+        Usuario usuario = request.toModel();
+        UserDetails usuarioAutenticado = service.autenticar(usuario);
+        String token = jwtService.gerarToken(usuario);
+        return new TokenDTO(token);
     }
 }

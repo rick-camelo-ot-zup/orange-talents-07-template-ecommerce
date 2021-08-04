@@ -9,6 +9,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -40,6 +41,12 @@ public class Produto {
     private Set<Caracteristica> caracteristicas;
     @Column(nullable = false)
     private LocalDateTime instante;
+    @ManyToOne
+    @JoinColumn(name="usuario_id")
+    private Usuario usuario;
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JoinColumn(name="produto_id")
+    private List<ImagemProduto> imagens;
 
     @PrePersist
     protected void onCreate() {
@@ -55,16 +62,22 @@ public class Produto {
                    @PositiveOrZero @NotNull Integer quantidade,
                    @NotBlank String descricao,
                    @NotNull Categoria categoria,
-                   Set<Caracteristica> caracteristicas) {
+                   Set<Caracteristica> caracteristicas,
+                   Usuario usuario) {
         this.nome = nome;
         this.valor = valor;
         this.quantidade = quantidade;
         this.descricao = descricao;
         this.categoria = categoria;
         this.caracteristicas = caracteristicas;
+        this.usuario = usuario;
     }
 
     public Set<Caracteristica> getCaracteristicas() {
         return caracteristicas;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
     }
 }

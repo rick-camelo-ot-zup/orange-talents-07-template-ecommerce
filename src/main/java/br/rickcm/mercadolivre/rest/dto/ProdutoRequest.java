@@ -3,6 +3,7 @@ package br.rickcm.mercadolivre.rest.dto;
 import br.rickcm.mercadolivre.model.Caracteristica;
 import br.rickcm.mercadolivre.model.Categoria;
 import br.rickcm.mercadolivre.model.Produto;
+import br.rickcm.mercadolivre.model.Usuario;
 import br.rickcm.mercadolivre.repository.CategoriaRepository;
 import br.rickcm.mercadolivre.rest.validator.ExistsId;
 import br.rickcm.mercadolivre.rest.validator.ListSize;
@@ -36,12 +37,12 @@ public class ProdutoRequest {
     @ListSize(min = 3, message = "deve ter no mínimo três características.")
     private Set<CaracteristicaDTO> caracteristicas;
 
-    public Produto toModel(CategoriaRepository categoriaRepository){
+    public Produto toModel(CategoriaRepository categoriaRepository, Usuario usuario){
         Optional<Categoria> categoria = categoriaRepository.findById(this.categoria);
         Set<Caracteristica> caracteristicas = this.caracteristicas.stream().map(caracteristicaDTO -> {
             return new Caracteristica(caracteristicaDTO.getNome(), caracteristicaDTO.getDescricao());
         }).collect(Collectors.toSet());
-        return new Produto(nome, valor, quantidade, descricao, categoria.get(),caracteristicas);
+        return new Produto(nome, valor, quantidade, descricao, categoria.get(),caracteristicas, usuario);
     }
 
     public String getNome() {

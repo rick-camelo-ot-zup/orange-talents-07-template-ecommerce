@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Usuario implements UserDetails {
@@ -35,6 +36,8 @@ public class Usuario implements UserDetails {
     @JoinTable(name = "usuario_permission", joinColumns = {@JoinColumn(name = "id_user")},
             inverseJoinColumns = {@JoinColumn(name = "id_permissions")})
     private List<Permission> permissions;
+    @OneToMany(mappedBy ="usuario", fetch = FetchType.LAZY)
+    private List<Produto> produtos;
 
     @PrePersist
     private void onCreate(){
@@ -62,6 +65,19 @@ public class Usuario implements UserDetails {
                 ", login='" + login + '\'' +
                 ", instante=" + instante +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(id, usuario.id) && Objects.equals(login, usuario.login) && Objects.equals(senha, usuario.senha) && Objects.equals(instante, usuario.instante);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, senha, instante, permissions, produtos);
     }
 
     public String getLogin() {

@@ -19,6 +19,9 @@ public class ListSizeValidator implements ConstraintValidator<ListSize, Collecti
 
     @Override
     public boolean isValid(Collection collection, ConstraintValidatorContext constraintValidatorContext) {
+        if(collection == null){
+            return false;
+        }
         return collection.size() >= min && collection.size() <= max;
     }
 }
