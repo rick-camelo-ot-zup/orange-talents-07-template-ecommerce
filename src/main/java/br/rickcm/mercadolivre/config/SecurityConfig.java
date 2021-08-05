@@ -1,6 +1,6 @@
 package br.rickcm.mercadolivre.config;
 
-import br.rickcm.mercadolivre.service.UsuarioDetalhesService;
+import br.rickcm.mercadolivre.processor.UsuarioDetalhesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;

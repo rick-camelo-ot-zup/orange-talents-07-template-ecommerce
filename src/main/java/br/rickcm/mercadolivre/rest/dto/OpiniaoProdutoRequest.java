@@ -4,6 +4,7 @@ import br.rickcm.mercadolivre.model.OpiniaoProduto;
 import br.rickcm.mercadolivre.model.Produto;
 import br.rickcm.mercadolivre.model.Usuario;
 import br.rickcm.mercadolivre.rest.validator.ExistsId;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
 
@@ -15,6 +16,7 @@ public class OpiniaoProdutoRequest {
     @NotBlank
     private String titulo;
     @NotBlank
+    @Length(max = 500)
     private String descricao;
     @NotNull
     @ExistsId(

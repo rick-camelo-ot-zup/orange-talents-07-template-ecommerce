@@ -1,4 +1,4 @@
-package br.rickcm.mercadolivre.service;
+package br.rickcm.mercadolivre.processor;
 
 
 import br.rickcm.mercadolivre.error.SenhaInvalidaException;
@@ -9,11 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 
-@Service
+@Component
 public class UsuarioDetalhesService implements UserDetailsService {
 
     @Autowired

@@ -17,7 +17,7 @@ public class OpiniaoProduto {
     @Column(nullable = false)
     private String titulo;
     @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String descricao;
     @NotNull
     @ManyToOne

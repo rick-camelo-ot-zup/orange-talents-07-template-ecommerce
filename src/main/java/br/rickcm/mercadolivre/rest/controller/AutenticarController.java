@@ -1,6 +1,6 @@
 package br.rickcm.mercadolivre.rest.controller;
 
-import br.rickcm.mercadolivre.service.UsuarioDetalhesService;
+import br.rickcm.mercadolivre.processor.UsuarioDetalhesService;
 import br.rickcm.mercadolivre.config.JwtService;
 import br.rickcm.mercadolivre.model.Usuario;
 import br.rickcm.mercadolivre.repository.UsuarioRepository;

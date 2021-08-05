@@ -1,35 +1,34 @@
-package br.rickcm.mercadolivre.service.impl;
+package br.rickcm.mercadolivre.processor.impl;
 
 import br.rickcm.mercadolivre.model.ImagemProduto;
 import br.rickcm.mercadolivre.model.Produto;
 import br.rickcm.mercadolivre.repository.ImagemProdutoRepository;
-import br.rickcm.mercadolivre.service.UploadService;
+import br.rickcm.mercadolivre.processor.UploadImagem;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-@Profile("dev")
-public class UploaderFake implements UploadService {
+@Component
+@Profile("default")
+public class UploaderAmazon implements UploadImagem {
 
     private ImagemProdutoRepository repository;
 
-    public UploaderFake(ImagemProdutoRepository repository) {
+    public UploaderAmazon(ImagemProdutoRepository repository) {
         this.repository = repository;
     }
-
     /**
      * @Param imagens lista de MultiPartFile
      * @Return links para imagens que foram feitos upload.
      **/
     public List<ImagemProduto> envia(List<MultipartFile> imagens, Produto produto) {
         List<ImagemProduto> retorno = imagens.stream().map(multipartFile -> {
-            return new ImagemProduto(multipartFile.getOriginalFilename(), produto);
+            return new ImagemProduto(multipartFile.getOriginalFilename()+"-->S3", produto);
         }).collect(Collectors.toList());
-        retorno = repository.saveAll(retorno);
+        repository.saveAll(retorno);
         return retorno;
     }
 }

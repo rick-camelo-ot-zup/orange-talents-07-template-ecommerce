@@ -50,6 +50,9 @@ public class Produto {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name="produto_id")
     private List<OpiniaoProduto> opinioes;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="produto_id")
+    private List<PerguntaProduto> perguntas;
 
     @PrePersist
     protected void onCreate() {
@@ -84,8 +87,16 @@ public class Produto {
         this.opinioes.add(opiniao);
     }
 
+    public void adicionaPergunta(PerguntaProduto pergunta) {
+        this.perguntas.add(pergunta);
+    }
+
     public boolean mesmoId(Long id) {
         return this.id.equals(id);
+    }
+
+    public String getEmailDono(){
+        return this.usuario.getLogin();
     }
 
     public boolean ehDono(Usuario usuario){

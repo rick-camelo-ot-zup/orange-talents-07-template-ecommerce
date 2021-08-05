@@ -1,6 +1,6 @@
 package br.rickcm.mercadolivre.config;
 
-import br.rickcm.mercadolivre.service.UsuarioDetalhesService;
+import br.rickcm.mercadolivre.processor.UsuarioDetalhesService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
