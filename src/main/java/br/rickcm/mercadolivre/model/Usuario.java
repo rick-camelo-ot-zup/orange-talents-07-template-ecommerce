@@ -38,6 +38,9 @@ public class Usuario implements UserDetails {
     private List<Permission> permissions;
     @OneToMany(mappedBy ="usuario", fetch = FetchType.LAZY)
     private List<Produto> produtos;
+    @OneToMany
+    @JoinColumn(name="usuario_id")
+    private List<OpiniaoProduto> opinioes;
 
     @PrePersist
     private void onCreate(){

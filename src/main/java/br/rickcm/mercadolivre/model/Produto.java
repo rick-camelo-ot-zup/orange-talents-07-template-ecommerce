@@ -47,6 +47,9 @@ public class Produto {
     @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name="produto_id")
     private List<ImagemProduto> imagens;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="produto_id")
+    private List<OpiniaoProduto> opinioes;
 
     @PrePersist
     protected void onCreate() {
@@ -77,7 +80,16 @@ public class Produto {
         return caracteristicas;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public void adicionaOpiniao(OpiniaoProduto opiniao) {
+        this.opinioes.add(opiniao);
     }
+
+    public boolean mesmoId(Long id) {
+        return this.id.equals(id);
+    }
+
+    public boolean ehDono(Usuario usuario){
+        return this.usuario.equals(usuario);
+    }
+
 }
