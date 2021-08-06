@@ -34,7 +34,7 @@ public class ProdutoRequest {
             message = "Categoria não encontada."
     )
     private Long categoria;
-    @ListSize(min = 3, message = "deve ter no mínimo três características.")
+    @ListSize(min = 3, message = "deve ter no mínimo três características diferentes.")
     private Set<CaracteristicaDTO> caracteristicas;
 
     public Produto toModel(CategoriaRepository categoriaRepository, Usuario usuario){

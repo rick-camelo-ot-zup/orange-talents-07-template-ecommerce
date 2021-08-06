@@ -140,4 +140,9 @@ public class Produto {
         return imagens.stream().map(ImagemResponse::new).collect(Collectors.toList());
     }
 
+    public boolean abateQuantidade(int quantidade){
+        if(quantidade > this.quantidade) return false;
+        this.quantidade -= quantidade;
+        return true;
+    }
 }

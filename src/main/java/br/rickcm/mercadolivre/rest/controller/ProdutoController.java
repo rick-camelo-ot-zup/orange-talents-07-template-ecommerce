@@ -34,7 +34,7 @@ public class ProdutoController {
         this.caracteristicaRepository = caracteristicaRepository;
     }
 
-    @PostMapping
+    @PostMapping("/produtos")
     @Transactional
     public ResponseEntity<?> create(@RequestBody @Valid ProdutoRequest request, @AuthenticationPrincipal Usuario usuario){
         System.out.println(usuario.getLogin());

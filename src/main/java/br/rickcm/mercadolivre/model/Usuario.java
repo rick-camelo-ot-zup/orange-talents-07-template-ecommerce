@@ -41,6 +41,9 @@ public class Usuario implements UserDetails {
     @OneToMany
     @JoinColumn(name="usuario_id")
     private List<OpiniaoProduto> opinioes;
+    @OneToMany
+    @JoinColumn(name="usuario_id")
+    private List<CompraProduto> compras;
 
     @PrePersist
     private void onCreate(){
