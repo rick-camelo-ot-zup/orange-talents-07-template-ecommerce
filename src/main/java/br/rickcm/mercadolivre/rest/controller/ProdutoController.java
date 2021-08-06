@@ -1,16 +1,14 @@
 package br.rickcm.mercadolivre.rest.controller;
 
 import br.rickcm.mercadolivre.error.ResourceNotFoundException;
-import br.rickcm.mercadolivre.model.ImagemProduto;
 import br.rickcm.mercadolivre.model.Produto;
 import br.rickcm.mercadolivre.model.Usuario;
 import br.rickcm.mercadolivre.repository.CategoriaRepository;
-import br.rickcm.mercadolivre.rest.dto.ImagensRequest;
 import br.rickcm.mercadolivre.rest.dto.OpiniaoProdutoRequest;
+import br.rickcm.mercadolivre.rest.dto.ProdutoDetalhesResponse;
 import br.rickcm.mercadolivre.rest.dto.ProdutoRequest;
 import br.rickcm.mercadolivre.repository.CaracteristicaRepository;
 import br.rickcm.mercadolivre.repository.ProdutoRepository;
-import br.rickcm.mercadolivre.processor.UploadImagem;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -60,6 +58,17 @@ public class ProdutoController {
         produto.adicionaOpiniao(opiniao.toModel(produto, usuario));
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/produtos/{id}")
+    public ResponseEntity<?> getDetalhes(@PathVariable("id") long idProduto){
+        Optional<Produto> possivelProduto = repository.findById(idProduto);
+        if(possivelProduto.isEmpty()){
+            throw new ResourceNotFoundException("Não encontrado produto com o id informado.");
+        }
+        Produto produto = possivelProduto.get();
+        ProdutoDetalhesResponse response = new ProdutoDetalhesResponse(produto);
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping

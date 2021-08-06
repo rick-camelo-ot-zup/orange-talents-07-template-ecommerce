@@ -1,5 +1,9 @@
 package br.rickcm.mercadolivre.model;
 
+import br.rickcm.mercadolivre.rest.dto.CaracteristicaResponse;
+import br.rickcm.mercadolivre.rest.dto.ImagemResponse;
+import br.rickcm.mercadolivre.rest.dto.OpiniaoResponse;
+import br.rickcm.mercadolivre.rest.dto.PerguntaResponse;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -11,6 +15,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Produto {
@@ -101,6 +106,38 @@ public class Produto {
 
     public boolean ehDono(Usuario usuario){
         return this.usuario.equals(usuario);
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public List<OpiniaoProduto> getOpinioes() {
+        return opinioes;
+    }
+
+    public List<CaracteristicaResponse> mapCaracteristica (){
+        return caracteristicas.stream().map(CaracteristicaResponse::new).collect(Collectors.toList());
+    }
+
+    public List<PerguntaResponse> mapPerguntas(){
+        return perguntas.stream().map(PerguntaResponse::new).collect(Collectors.toList());
+    }
+
+    public List<OpiniaoResponse> mapOpiniao(){
+        return opinioes.stream().map(OpiniaoResponse::new).collect(Collectors.toList());
+    }
+
+    public List<ImagemResponse> mapImagens(){
+        return imagens.stream().map(ImagemResponse::new).collect(Collectors.toList());
     }
 
 }
