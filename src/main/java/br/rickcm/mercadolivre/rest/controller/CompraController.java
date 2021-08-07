@@ -7,11 +7,9 @@ import br.rickcm.mercadolivre.model.Usuario;
 import br.rickcm.mercadolivre.processor.EnviadorEmail;
 import br.rickcm.mercadolivre.repository.CompraRepository;
 import br.rickcm.mercadolivre.repository.ProdutoRepository;
-import br.rickcm.mercadolivre.rest.dto.CompraPosPagamentoRequest;
 import br.rickcm.mercadolivre.rest.dto.CompraRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,13 +52,10 @@ public class CompraController {
 
         enviadorEmail.envia(produto.getEmailDono(), "Compra registrada para o produto"+produto.getNome());
 
-        URI uri = uriBuilder.path("/compras/{id}").buildAndExpand(compra.getId()).toUri();
+        URI uri = uriBuilder.path(gatewayPagamento.getEndpoint()+"{id}").buildAndExpand(compra.getId()).toUri();
         URI url = gatewayPagamento.montaUrl(compra.getIdentificador(),uri);
+
         return ResponseEntity.status(302).location(url).build();
     }
 
-    @PostMapping("/compras/{id}")
-    public ResponseEntity<?> create(@PathVariable("id") long id, @RequestBody @Valid CompraPosPagamentoRequest request){
-        return ResponseEntity.ok().build();
-    }
 }

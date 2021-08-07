@@ -6,6 +6,7 @@ import br.rickcm.mercadolivre.enums.StatusCompra;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -38,6 +39,9 @@ public class CompraProduto {
     @NotNull
     @Column(nullable = false)
     private UUID identificador;
+    @OneToMany
+    @JoinColumn(name = "compra_id")
+    private List<TransacaoCompra> transacoes;
 
     @Deprecated
     public CompraProduto() {
@@ -78,4 +82,16 @@ public class CompraProduto {
     public Long getId() {
         return id;
     }
+
+    public void finalizaCompra(){
+        this.status = StatusCompra.FINALIZADA;
+    }
+
+    public boolean estahFinalizada(){
+        return status.name().equals("FINALIZADA");
+    }
+
+    public String getNomeGateway(){
+        return gateway.name();
+    };
 }

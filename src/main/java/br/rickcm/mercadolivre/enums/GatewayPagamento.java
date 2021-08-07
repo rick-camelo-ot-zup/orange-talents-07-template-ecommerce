@@ -9,11 +9,20 @@ public enum GatewayPagamento {
         public URI montaUrl(UUID uuid, URI uri) {
             return URI.create("paypal.com?buyerId="+uuid+"&redirectUrl="+uri+"");
         }
+
+        @Override
+        public String getEndpoint() {
+            return "/retorno-paypal/";
+        }
     },
     PAGSEGURO(2){
         @Override
         public URI montaUrl(UUID uuid, URI uri) {
             return URI.create("pagseguro.com?returnId="+uuid+"&redirectUrl="+uri+"");
+        }
+        @Override
+        public String getEndpoint() {
+            return "/retorno-pagseguro/";
         }
     };
 
@@ -37,4 +46,5 @@ public enum GatewayPagamento {
     }
 
     public abstract URI montaUrl(UUID uuid, URI uri);
+    public abstract String getEndpoint();
 }
