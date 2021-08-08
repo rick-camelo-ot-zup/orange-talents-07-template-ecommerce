@@ -84,6 +84,10 @@ public class Produto {
         this.usuario = usuario;
     }
 
+    public Long getIdDono(){
+        return usuario.getId();
+    }
+
     public Set<Caracteristica> getCaracteristicas() {
         return caracteristicas;
     }

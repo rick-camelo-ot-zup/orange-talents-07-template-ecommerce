@@ -2,6 +2,8 @@ package br.rickcm.mercadolivre.model;
 
 import br.rickcm.mercadolivre.enums.GatewayPagamento;
 import br.rickcm.mercadolivre.enums.StatusCompra;
+import br.rickcm.mercadolivre.rest.dto.NotaFiscalRequest;
+import br.rickcm.mercadolivre.rest.dto.RankingVendedoresRequest;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -87,11 +89,25 @@ public class CompraProduto {
         this.status = StatusCompra.FINALIZADA;
     }
 
-    public boolean estahFinalizada(){
-        return status.name().equals("FINALIZADA");
+    public NotaFiscalRequest dadosNota(){
+        return new NotaFiscalRequest(id, usuario.getId());
     }
 
-    public String getNomeGateway(){
-        return gateway.name();
-    };
+    public RankingVendedoresRequest dadosRanking(){
+        return new RankingVendedoresRequest(id, produto.getIdDono());
+    }
+
+    public String emailComprador(){
+        return usuario.getLogin();
+    }
+
+    public String dadosEmail(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\nProduto: "+produto.getNome());
+        stringBuilder.append("\nValor: "+valorProduto);
+        stringBuilder.append("\nVendedor: "+produto.getEmailDono());
+        stringBuilder.append("\nQuantidade: "+quantidade);
+        stringBuilder.append("\nGateway: "+gateway.name());
+        return stringBuilder.toString();
+    }
 }

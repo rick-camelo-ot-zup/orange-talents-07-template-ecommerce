@@ -1,13 +1,12 @@
 package br.rickcm.mercadolivre.model;
 
-import br.rickcm.mercadolivre.enums.GatewayPagamento;
 import br.rickcm.mercadolivre.enums.StatusTransacao;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class TransacaoCompra {
@@ -43,7 +42,12 @@ public class TransacaoCompra {
         this.status = StatusTransacao.CONCLUIDA;
     }
 
-    public String getNomeGateway(){
-        return compra.getNomeGateway();
+    public String dadosEmail(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(compra.dadosEmail());
+        stringBuilder.append("\nPagamento: "+status.name());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+        stringBuilder.append("\nData e Hora: "+ instante.format(formatter));
+        return stringBuilder.toString();
     }
 }

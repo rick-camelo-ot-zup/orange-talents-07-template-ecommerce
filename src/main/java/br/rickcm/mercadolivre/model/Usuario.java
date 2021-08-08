@@ -81,6 +81,10 @@ public class Usuario implements UserDetails {
         return Objects.equals(id, usuario.id) && Objects.equals(login, usuario.login) && Objects.equals(senha, usuario.senha) && Objects.equals(instante, usuario.instante);
     }
 
+    public Long getId() {
+        return id;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, login, senha, instante, permissions, produtos);
